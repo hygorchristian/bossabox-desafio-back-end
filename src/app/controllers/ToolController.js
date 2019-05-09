@@ -54,7 +54,11 @@ class ToolController {
       const tool = await Tool.findByIdAndUpdate(id, req.body, {
         new: true // returns tool with updated data
       })
-      return res.json(tool)
+      if (tool) {
+        return res.json(tool)
+      } else {
+        return res.status(404).json({ error: 'Tool not found' })
+      }
     } catch (error) {
       return res.status(404).json({ error: 'Tool not found' })
     }
@@ -63,8 +67,12 @@ class ToolController {
   async destroy (req, res) {
     const { id } = req.params
     try {
-      await Tool.findByIdAndDelete(id)
-      return res.json({ message: 'Success deleting tool' })
+      const tool = await Tool.findByIdAndDelete(id)
+      if (tool) {
+        return res.json({ message: 'Success deleting tool' })
+      } else {
+        return res.status(404).json({ error: 'Tool not found' })
+      }
     } catch (error) {
       return res.status(404).json({ error: 'Tool not found' })
     }

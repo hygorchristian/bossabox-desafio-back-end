@@ -20,7 +20,11 @@ class UserController {
       const user = await User.findByIdAndUpdate(id, req.body, {
         new: true
       })
-      return res.json({ user })
+      if (user) {
+        return res.json({ user })
+      } else {
+        return res.status(404).json({ error: 'User not found' })
+      }
     } catch (error) {
       return res.status(400).json({ error: 'Failed to update user' })
     }
@@ -31,7 +35,11 @@ class UserController {
 
     try {
       const user = await User.findById(id)
-      return res.json({ user })
+      if (user) {
+        return res.json({ user })
+      } else {
+        return res.status(404).json({ error: 'User not found' })
+      }
     } catch (error) {
       return res.status(400).json({ error: 'Error fetching user' })
     }
