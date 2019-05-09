@@ -2,7 +2,7 @@ module.exports = {
   swagger: '2.0',
   info: {
     description:
-      'The application is a simple repository for managing tools with their respective names, links, descriptions and tags.',
+      'A aplicação é um simples repositório para gerenciar ferramentas com seus respectivos nomes, links, descrições e tags.,\n',
     version: '1.0.0',
     title: 'Very Useful Tools to Remember',
     contact: {
@@ -13,12 +13,20 @@ module.exports = {
       url: 'https://opensource.org/licenses/MIT'
     }
   },
-  host: 'http://localhost:3000',
-  basePath: '',
+  host: 'virtserver.swaggerhub.com',
+  basePath: '/SmartSoft/VUTTR2/1.0.0',
   tags: [
     {
       name: 'tool',
       description: 'Operations about tools'
+    },
+    {
+      name: 'user',
+      description: 'Operations about user'
+    },
+    {
+      name: 'login',
+      description: 'Oprations about login'
     }
   ],
   schemes: ['https', 'http'],
@@ -34,13 +42,15 @@ module.exports = {
             name: 'tag',
             in: 'query',
             description: 'Find all tools with the given tag name',
-            required: false
+            required: false,
+            type: 'string'
           },
           {
             name: 'page',
             in: 'query',
             description: 'Return the given page',
-            required: false
+            required: false,
+            type: 'integer'
           }
         ],
         responses: {
@@ -54,7 +64,7 @@ module.exports = {
       },
       post: {
         tags: ['tool'],
-        summary: 'Add a new tool',
+        summary: 'Create a new tool',
         operationId: 'addTool',
         consumes: ['application/json'],
         produces: ['application/json'],
@@ -150,8 +160,130 @@ module.exports = {
           }
         ],
         responses: {
-          '404': {
+          '400': {
             description: 'Tool not found'
+          }
+        }
+      }
+    },
+    '/users': {
+      post: {
+        tags: ['user'],
+        summary: 'Create new user',
+        operationId: 'createUser',
+        produces: ['application/json'],
+        parameters: [
+          {
+            in: 'body',
+            name: 'body',
+            required: true,
+            schema: {
+              $ref: '#/definitions/User'
+            }
+          }
+        ],
+        responses: {
+          '200': {
+            description: 'successful operation',
+            schema: {
+              $ref: '#/definitions/UserResponse'
+            }
+          },
+          '404': {
+            description: 'User not found'
+          }
+        }
+      }
+    },
+    '/users/{_id}': {
+      get: {
+        tags: ['user'],
+        summary: 'Find user by id',
+        operationId: 'getUser',
+        produces: ['application/json'],
+        parameters: [
+          {
+            name: '_id',
+            in: 'path',
+            required: true,
+            type: 'string'
+          }
+        ],
+        responses: {
+          '200': {
+            description: 'successful operation',
+            schema: {
+              $ref: '#/definitions/UserResponse'
+            }
+          },
+          '404': {
+            description: 'User not found'
+          }
+        }
+      },
+      put: {
+        tags: ['user'],
+        summary: 'Update user by id',
+        operationId: 'updateUser',
+        produces: ['application/json'],
+        parameters: [
+          {
+            name: '_id',
+            in: 'path',
+            required: true,
+            type: 'string'
+          },
+          {
+            in: 'body',
+            name: 'body',
+            required: true,
+            schema: {
+              $ref: '#/definitions/User'
+            }
+          }
+        ],
+        responses: {
+          '200': {
+            description: 'successful operation',
+            schema: {
+              $ref: '#/definitions/UserResponse'
+            }
+          },
+          '404': {
+            description: 'User not found'
+          }
+        }
+      }
+    },
+    '/login': {
+      post: {
+        tags: ['login'],
+        summary: 'Checks if user exists and return a token (JWT)',
+        operationId: 'login',
+        produces: ['application/json'],
+        parameters: [
+          {
+            in: 'body',
+            name: 'body',
+            description: 'Form fields required',
+            required: true,
+            schema: {
+              $ref: '#/definitions/LoginForm'
+            }
+          }
+        ],
+        responses: {
+          '200': {
+            description: 'successful operation',
+            schema: {
+              $ref: '#/definitions/LoginResponse'
+            }
+          },
+          '400': {
+            description: 'Invalid password'
+          },
+          '404': {
+            description: 'User with email not found'
           }
         }
       }
@@ -238,6 +370,92 @@ module.exports = {
         pages: {
           type: 'integer',
           example: 1
+        }
+      }
+    },
+    User: {
+      type: 'object',
+      required: ['email', 'name', 'password'],
+      properties: {
+        name: {
+          type: 'string',
+          example: 'Joao Lemes'
+        },
+        email: {
+          type: 'string',
+          example: 'joao.lemes@mail.com'
+        },
+        password: {
+          type: 'string',
+          example: '123456'
+        }
+      }
+    },
+    UserResponse: {
+      type: 'object',
+      required: ['email', 'name'],
+      properties: {
+        _id: {
+          type: 'string',
+          example: '5cd455a33e10a90200857b73'
+        },
+        name: {
+          type: 'string',
+          example: 'Joao Lemes'
+        },
+        email: {
+          type: 'string',
+          example: 'joao.lemes@mail.com'
+        },
+        __v: {
+          type: 'integer',
+          example: 0
+        }
+      }
+    },
+    LoginResponse: {
+      type: 'object',
+      properties: {
+        user: {
+          $ref: '#/definitions/LoginResponse_user'
+        },
+        token: {
+          type: 'string',
+          example:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjZDMyZmY2Y2Q3OTNjMjRhOGQwZDFlZSIsImlhdCI6MTU1NzM0NjgxNCwiZXhwIjoxNTU3NDMzMjE0fQ.hehD_oyEbWOhPnCYAHiZw2Gy_ie0Q-P-_9Pwa4t2ZjY'
+        }
+      }
+    },
+    LoginForm: {
+      type: 'object',
+      properties: {
+        email: {
+          type: 'string',
+          example: 'joao.lemes@mail.com'
+        },
+        senha: {
+          type: 'string',
+          example: '12345'
+        }
+      }
+    },
+    LoginResponse_user: {
+      properties: {
+        _id: {
+          type: 'string',
+          example: '5cd455a33e10a90200857b73'
+        },
+        name: {
+          type: 'string',
+          example: 'Joao Lemes'
+        },
+        email: {
+          type: 'string',
+          example: 'joao.lemes@mail.com'
+        },
+        __v: {
+          type: 'integer',
+          example: 0
         }
       }
     }
