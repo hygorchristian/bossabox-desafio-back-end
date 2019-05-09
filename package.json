@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "jest && exit 0"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -27,6 +28,8 @@
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-standard": "^4.0.0",
-    "nodemon": "^1.18.11"
+    "jest": "^24.8.0",
+    "nodemon": "^1.18.11",
+    "supertest": "^4.0.2"
   }
 }

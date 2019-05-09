@@ -1,10 +1,10 @@
 const routes = require('express').Router()
-const controllers = require('./app/controllers')
+const ToolController = require('./app/controllers/ToolController')
 
-routes.get('/tools', controllers.ToolController.index)
-routes.get('/tools/:id', controllers.ToolController.show)
-routes.post('/tools', controllers.ToolController.store)
-routes.put('/tools/:id', controllers.ToolController.update)
-routes.delete('/tools/:id', controllers.ToolController.destroy)
+routes.get('/tools', ToolController.index)
+routes.get('/tools/:id', ToolController.show)
+routes.post('/tools', ToolController.store)
+routes.put('/tools/:id', ToolController.update)
+routes.delete('/tools/:id', ToolController.destroy)
 
 module.exports = routes
