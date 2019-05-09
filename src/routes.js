@@ -7,9 +7,9 @@ const authMiddleware = require('./app/middlewares/auth.js')
 /* -- Tools -- */
 routes.get('/tools', ToolController.index)
 routes.get('/tools/:id', ToolController.show)
-routes.post('/tools', ToolController.store)
-routes.put('/tools/:id', ToolController.update)
-routes.delete('/tools/:id', ToolController.destroy)
+routes.post('/tools', authMiddleware, ToolController.store)
+routes.put('/tools/:id', authMiddleware, ToolController.update)
+routes.delete('/tools/:id', authMiddleware, ToolController.destroy)
 
 /* -- Users -- */
 routes.get('/users/:id', authMiddleware, UserController.show)
