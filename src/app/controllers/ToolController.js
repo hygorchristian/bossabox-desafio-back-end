@@ -29,7 +29,11 @@ class ToolController {
     const { id } = req.params
     try {
       const tool = await Tool.findById(id)
-      return res.json(tool)
+      if (tool) {
+        return res.json(tool)
+      } else {
+        return res.status(404).json({ error: 'Tool not found' })
+      }
     } catch (error) {
       return res.status(404).json({ error: 'Tool not found' })
     }
