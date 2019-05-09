@@ -17,6 +17,6 @@ routes.post('/users', UserController.store)
 routes.put('/users/:id', authMiddleware, UserController.update)
 
 /* -- Login -- */
-routes.post('/login', AuthController.store)
+routes.post('/login', AuthController.login)
 
 module.exports = routes
