@@ -2,8 +2,21 @@ const Tool = require('../models/Tool')
 
 class ToolController {
   async index (req, res) {
+    const filters = {}
+
+    const { tag } = req.query
+
+    if (tag) {
+      filters.tags = new RegExp(tag, 'i')
+    }
+
     try {
-      const tools = await Tool.find()
+      const tools = await Tool.paginate(filters, {
+        page: req.query.page || 1,
+        limit: 20,
+        populate: ['author'],
+        sort: '-createdAt'
+      })
       return res.json(tools)
     } catch (error) {
       return res
@@ -12,13 +25,46 @@ class ToolController {
     }
   }
 
-  async show (req, res) {}
+  async show (req, res) {
+    const { id } = req.params
+    try {
+      const tool = await Tool.findById(id)
+      return res.json(tool)
+    } catch (error) {
+      return res.status(404).json({ error: 'Tool not found' })
+    }
+  }
 
-  async store (req, res) {}
+  async store (req, res) {
+    try {
+      const tool = await Tool.create(req.body)
+      return res.json(tool)
+    } catch (error) {
+      return res.status(405).json({ error: 'Invalid input' })
+    }
+  }
 
-  async update (req, res) {}
+  async update (req, res) {
+    const { id } = req.params
+    try {
+      const tool = await Tool.findByIdAndUpdate(id, req.body, {
+        new: true // returns tool with updated data
+      })
+      return res.json(tool)
+    } catch (error) {
+      return res.status(404).json({ error: 'Tool not found' })
+    }
+  }
 
-  async destroy (req, res) {}
+  async destroy (req, res) {
+    const { id } = req.params
+    try {
+      await Tool.findByIdAndDelete(id)
+      return res.json({ message: 'Success deleting tool' })
+    } catch (error) {
+      return res.status(404).json({ error: 'Tool not found' })
+    }
+  }
 }
 
 module.exports = new ToolController()

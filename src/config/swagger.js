@@ -150,7 +150,7 @@ module.exports = {
           }
         ],
         responses: {
-          '400': {
+          '404': {
             description: 'Tool not found'
           }
         }
