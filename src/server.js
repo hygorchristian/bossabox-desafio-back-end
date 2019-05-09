@@ -1,5 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const swaggerUi = require('swagger-ui-express')
+const swaggerConfig = require('./config/swagger')
 require('dotenv').config()
 
 class App {
@@ -22,6 +24,11 @@ class App {
 
   middlewares () {
     this.express.use(express.json())
+    this.express.use(
+      '/swagger',
+      swaggerUi.serve,
+      swaggerUi.setup(swaggerConfig)
+    )
   }
 
   routes () {
