@@ -1,5 +1,7 @@
 FROM node:argon
 
+LABEL author="Hygor Dias"
+
 RUN mkdir /app
 
 WORKDIR /app
