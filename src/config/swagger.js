@@ -13,8 +13,8 @@ module.exports = {
       url: 'https://opensource.org/licenses/MIT'
     }
   },
-  host: 'virtserver.swaggerhub.com',
-  basePath: '/SmartSoft/VUTTR2/1.0.0',
+  host: process.env.HOST || 'http://localhost:3000',
+  basePath: '',
   tags: [
     {
       name: 'tool',
