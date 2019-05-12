@@ -4,18 +4,19 @@ Desafio back-end bossabox de construir uma aplicação simples para gerenciar fe
 
 ## :book: Sumário
 
-- [Dependências](https://github.com/rushy06/bossabox-desafio-back-end#gear-depend%C3%AAncias)
+- [Dependências](https://github.com/rushy06/bossabox-desafio-back-end#rocket-guia-de-instala%C3%A7%C3%A3o)
 - [Guia de instalação](https://github.com/rushy06/bossabox-desafio-back-end#rocket-guia-de-instala%C3%A7%C3%A3o)
-  - [Como instalar](https://github.com/rushy06/bossabox-desafio-back-end#como-instalar)
+  - [Como instalar](https://github.com/rushy06/bossabox-desafio-back-end#executando-a-aplica%C3%A7%C3%A3o)
   - [Executando a aplicação](https://github.com/rushy06/bossabox-desafio-back-end#executando-a-aplica%C3%A7%C3%A3o)
-- [Funcionalidades](https://github.com/rushy06/bossabox-desafio-back-end#bulb-funcionalidades)
-- [Conteinerização (Docker)](https://github.com/rushy06/bossabox-desafio-back-end#whale2-conteinerização-docker)
+- [Documentação](https://github.com/rushy06/bossabox-desafio-back-end#open_book-documenta%C3%A7%C3%A3o-swagger)
+- [Conteinerização (Docker)](https://github.com/rushy06/bossabox-desafio-back-end#whale2-conteineriza%C3%A7%C3%A3o-docker)
   - [Comandos Docker](https://github.com/gabrielsouzadev/vuttr-vue#comandos-docker)
 
 ## :gear: Dependências
 
 - [Node](https://nodejs.org/en/) (10.13.0 ou maior)
 - [Yarn](https://yarnpkg.com/pt-BR/) ou [NPM](https://www.npmjs.com/)
+- [Docker](https://www.docker.com/) (opcional)
 
 ## :rocket: Guia de instalação
 
